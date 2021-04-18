@@ -1,1 +1,2 @@
 django==3.2
+django-import_export=2.5
