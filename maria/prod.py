@@ -1,5 +1,5 @@
 import os
-import settings
+import maria.settings
 
 DEBUG = False
 
