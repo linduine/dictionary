@@ -44,7 +44,7 @@ class SearchResultsView(ListView):
     def get_queryset(self): # new
         query = self.request.GET.get('q')
         object_list = Lemma.objects.filter(
-           Q(wordform__icontains=query) | Q(translation__icontains=query)
+           Q(wordform__trigram_similar=query) | Q(lemma__trigram_similar=query)
            #Q(wordform__icontains='ana') | Q(wordform__icontains='umma')
         )
         all_keys = [el.group_key for el in object_list]

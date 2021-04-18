@@ -24,8 +24,13 @@
 <ul>
   {% for lemma_el in object_list %}
     <li>
-      Wordform: {{ lemma_el.obj.wordform }}, Translation: {{ lemma_el.obj.translation }}
-      <br><b>Lemma</b>
+      Lemma: {{ lemma_el.obj.lemma }}
+      <br>Wordform: {{ lemma_el.obj.wordform }}
+      <br>Translation: {{ lemma_el.obj.translation }}
+      <br><b>Meta data</b>
+      <br>Source: {{ lemma_el.obj.key.source }}, time: {{ lemma_el.obj.key.time }}, CTH: {{ lemma_el.obj.key.CTH }}
+      <br>Title: {{ lemma_el.obj.key.title }}, publication: {{ lemma_el.obj.key.publication }}, Text index: {{ lemma_el.obj.key.text_index }}
+      <br><b>Clause details</b>
       <br>Syllabic transliteration: {{ lemma_el.obj.group_key.syllabic_transliteration }}
       <br>Broad transliteration: {{ lemma_el.obj.group_key.broad_transliteration }}
       <br>Translation: {{ lemma_el.obj.group_key.text_translation}}
