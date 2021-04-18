@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'library',
         'HOST': 'lang-dictionary-postgres.postgres.database.azure.com',
         'PORT': '5432',
-        'USER': 'postgres',
+        'USER': 'postgres@lang-dictionary-postgres',
         'PASSWORD': os.environ['DB_PASSWORD']
     }
 }
