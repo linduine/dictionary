@@ -43,28 +43,36 @@ class SearchResultsView(ListView):
     template_name = 'search_results.html'
     def get_queryset(self): # new
         query = self.request.GET.get('q')
+        query_meta = self.request.GET.get('q_meta')
         object_list = Lemma.objects.filter(
-           Q(wordform__trigram_similar=query) | Q(lemma__trigram_similar=query)
-           #Q(wordform__icontains='ana') | Q(wordform__icontains='umma')
-        )
-        all_keys = [el.group_key for el in object_list]
+        		Q(wordform__trigram_similar=query) | Q(lemma__trigram_similar=query) | Q(key__text_index__exact=query_meta)
+        		#Q(key__text_index__exact=query_meta)
+           #Q(wordform__icontains='ana') | Q(lemma__icontains='umma')
+           )
+        #if q_meta not None:
+       # 	meta_object_list = 
+        all_keys = set([el.group_key for el in object_list])
         #all_lemmas = [el.group_key.lemmas for el in object_list]
+        # clauses
         all_lemmas = [Lemma.objects.filter(
            Q(group_key__exact=key) 
         ) for key in all_keys]
         trees = []
+        # going for each clause
         for elList in all_lemmas:
-        	for el in elList:
-        		if el.lemma in [r.lemma for r in object_list]:
-        			trees.append({
-        			'obj': el,
-        			'tree': treemaker(elList)})
-                
+        	#for el in elList:
+        		#if el.lemma in [r.lemma for r in object_list]:
+        	trees.append({
+        		'obj': elList[0].group_key,  #return clause
+        		'tree': treemaker(elList),
+        		'lemmas': elList,
+        		'meta': elList[0].key, #return meta 
+        		})       
         #trees = [{'obj': el.lemma if el.lemma in [r.lemma for r in object_list] else None, 'tree': treemaker(el)} for elList in all_lemmas]
         #select * from lemma where lemma.group_key = query.group_key
 
-        view_object = {"lemma": object_list, "tree": trees, "lemmas": all_lemmas}
-        return trees
+        view_object = {"query": {'wordform': query, 'index': query_meta}, "trees": trees}
+        return view_object
 
 class DetailView(TemplateView):
     template_name = "clauseDetail.html"

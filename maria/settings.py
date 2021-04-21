@@ -26,7 +26,8 @@ SECRET_KEY = '#q2!b7a&&-c00&y^$#t00cwl$+tagenk8g^yn5%&+2_-m=)3xj'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'lang-dictionary.azurewebsites.net'
+    'lang-dictionary.azurewebsites.net',
+    '127.0.0.1'
 ]
 
 
