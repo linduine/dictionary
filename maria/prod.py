@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.postgres',
     'dictionary.apps.DictionaryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
