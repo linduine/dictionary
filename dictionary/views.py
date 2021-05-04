@@ -27,7 +27,8 @@ def treemaker(lemma_list):
     # sorting into dependency groups
     dep_dict = {}
     for obj in lemma_list:
-        item = {'name': obj.lemma, 'wordorder': obj.word_order}
+        synt_role = f", {obj.synt_role}" if obj.synt_role else ''
+        item = {'name': f"{obj.wordform}{synt_role}", 'wordorder': obj.word_order}
         dep_dict[obj.dependency] = dep_dict[obj.dependency] + [item] if obj.dependency in dep_dict else [item]
     print(dep_dict[0][0]['name'])
     tree['name'] = dep_dict[0][0]['name']
